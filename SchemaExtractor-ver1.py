@@ -77,7 +77,12 @@ def index():
             #print(table)
 
         df = pdf_handler(table,filename)
-    
+      
+    if filename.endswith('.txt'):
+        df_file = pd.read_csv(ifile, sep='\t',low_memory=False,skiprows=int(skip_rows),encoding='unicode_escape')
+        #print(df_file)
+        df = df_handler(df_file,filename)
+
     output = BytesIO()
     with pd.ExcelWriter(output) as writer:
       #writer.book = openpyxl.load_workbook(writer, sheet_name='schema1')
